@@ -394,7 +394,7 @@ public final class TutoShowcase {
             Rect rect = new Rect();
             view.getGlobalVisibleRect(rect);
 
-            int padding = 40;
+            int padding = 20;
 
             final int x = rect.left - padding;
             final int y = rect.top - getStatusBarOffset() - padding;
