@@ -10,7 +10,7 @@ public class RoundRect extends Shape {
     private int y;
     private int width;
     private int height;
-    public static final int BORDER_PADDING = 30;
+    public static final int BORDER_PADDING = 15;
 
     public RoundRect(int x, int y, int width, int height) {
         super();
