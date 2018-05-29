@@ -143,13 +143,18 @@ public final class TutoShowcase {
         ViewCompat.animate(container)
                 .alpha(1f)
                 .setDuration(container.getResources().getInteger(android.R.integer.config_longAnimTime))
+                .withEndAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        container.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dismiss();
+                            }
+                        });
+                    }
+                })
                 .start();
-        container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
         return this;
     }
 
