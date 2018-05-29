@@ -141,17 +141,12 @@ public final class TutoShowcase {
     }
 
     public TutoShowcase show() {
+        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         container.setVisibility(View.VISIBLE);
         ViewCompat.animate(container)
                 .alpha(1f)
                 .setDuration(container.getResources().getInteger(android.R.integer.config_longAnimTime))
-                .withStartAction(new Runnable() {
-                    @Override
-                    public void run() {
-                        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    }
-                })
                 .withEndAction(new Runnable() {
                     @Override
                     public void run() {
