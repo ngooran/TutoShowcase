@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -46,14 +47,15 @@ public final class TutoShowcase {
     private SharedPreferences sharedPreferences;
     private boolean fitsSystemWindows = false;
     private Listener listener;
+    private Window window;
 
     private TutoShowcase(@NonNull Activity activity) {
         this.sharedPreferences = activity.getSharedPreferences(SHARED_TUTO, Context.MODE_PRIVATE);
         this.container = new FrameLayout(activity);
         this.tutoView = new TutoView(activity);
-        Window window = activity.getWindow();
-        if (window != null) {
-            ViewGroup decorView = (ViewGroup) window.getDecorView();
+        this.window = activity.getWindow();
+        if (this.window != null) {
+            ViewGroup decorView = (ViewGroup) this.window.getDecorView();
             if (decorView != null) {
                 ViewGroup content = decorView.findViewById(android.R.id.content);
                 if (content != null) {
@@ -143,6 +145,13 @@ public final class TutoShowcase {
         ViewCompat.animate(container)
                 .alpha(1f)
                 .setDuration(container.getResources().getInteger(android.R.integer.config_longAnimTime))
+                .withStartAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    }
+                })
                 .withEndAction(new Runnable() {
                     @Override
                     public void run() {
@@ -152,6 +161,7 @@ public final class TutoShowcase {
                                 dismiss();
                             }
                         });
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
                 })
                 .start();
