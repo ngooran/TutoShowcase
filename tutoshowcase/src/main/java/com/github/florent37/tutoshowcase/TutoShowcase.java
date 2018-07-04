@@ -369,14 +369,18 @@ public final class TutoShowcase {
         }
 
         public ShapeViewActionsEditor addRoundRect() {
-            return addRoundRect(DEFAULT_ADDITIONAL_RADIUS_RATIO);
+            return addRoundRect(DEFAULT_ADDITIONAL_RADIUS_RATIO, null);
         }
 
-        public ShapeViewActionsEditor addRoundRect(final float additionalRadiusRatio) {
+        public ShapeViewActionsEditor addRoundRect(@Nullable final Float radius) {
+            return addRoundRect(DEFAULT_ADDITIONAL_RADIUS_RATIO, radius);
+        }
+
+        public ShapeViewActionsEditor addRoundRect(final float additionalRadiusRatio, @Nullable final Float radius) {
             view.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                 @Override
                 public boolean onPreDraw() {
-                    addRoundRectOnView(additionalRadiusRatio);
+                    addRoundRectOnView(additionalRadiusRatio, radius);
                     view.getViewTreeObserver().removeOnPreDrawListener(this);
                     return false;
                 }
@@ -400,7 +404,7 @@ public final class TutoShowcase {
             return new ShapeViewActionsEditor(this);
         }
 
-        private void addRoundRectOnView(float additionalRadiusRatio) {
+        private void addRoundRectOnView(float additionalRadiusRatio, @Nullable Float radius) {
             Rect rect = new Rect();
             view.getGlobalVisibleRect(rect);
 
@@ -411,7 +415,7 @@ public final class TutoShowcase {
             final int width = rect.width() + 2 * padding;
             final int height = rect.height() + 2 * padding;
 
-            RoundRect roundRect = new RoundRect(x, y, width, height);
+            RoundRect roundRect = new RoundRect(x, y, width, height, radius);
             roundRect.setDisplayBorder(settings.withBorder);
             tutoShowcase.tutoView.addRoundRect(roundRect);
             addClickableView(rect, settings.onClickListener, additionalRadiusRatio);
