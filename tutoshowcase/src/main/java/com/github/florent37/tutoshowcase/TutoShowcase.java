@@ -140,7 +140,7 @@ public final class TutoShowcase {
         return this;
     }
 
-    public TutoShowcase show() {
+    public TutoShowcase show(final boolean shouldDismissOnTap) {
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         container.setVisibility(View.VISIBLE);
@@ -153,7 +153,9 @@ public final class TutoShowcase {
                         container.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                dismiss();
+                                if (shouldDismissOnTap) {
+                                    dismiss();
+                                }
                             }
                         });
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -163,9 +165,9 @@ public final class TutoShowcase {
         return this;
     }
 
-    public TutoShowcase showOnce(String key) {
+    public TutoShowcase showOnce(String key, boolean shouldDismissOnTap) {
         if (!sharedPreferences.contains(key)) {
-            show();
+            show(shouldDismissOnTap);
             sharedPreferences.edit().putString(key, key).apply();
         }
         return this;
@@ -235,8 +237,8 @@ public final class TutoShowcase {
             return tutoShowcase.on(view);
         }
 
-        public TutoShowcase show() {
-            return tutoShowcase.show();
+        public TutoShowcase show(boolean shouldDismissOnTap) {
+            return tutoShowcase.show(shouldDismissOnTap);
         }
 
         private void displaySwipable(final boolean left) {
@@ -455,8 +457,8 @@ public final class TutoShowcase {
             tutoShowcase.container.invalidate();
         }
 
-        public TutoShowcase showOnce(String key) {
-            return tutoShowcase.showOnce(key);
+        public TutoShowcase showOnce(String key, boolean shouldDismissOnTap) {
+            return tutoShowcase.showOnce(key, shouldDismissOnTap);
         }
 
         public TutoShowcase onClickContentView(@IdRes int viewId, View.OnClickListener onClickListener) {
@@ -479,12 +481,12 @@ public final class TutoShowcase {
             return viewActions.on(view);
         }
 
-        public TutoShowcase show() {
-            return viewActions.show();
+        public TutoShowcase show(boolean shouldDismissOnTap) {
+            return viewActions.show(shouldDismissOnTap);
         }
 
-        public TutoShowcase showOnce(String key) {
-            return viewActions.showOnce(key);
+        public TutoShowcase showOnce(String key, boolean shouldDismissOnTap) {
+            return viewActions.showOnce(key, shouldDismissOnTap);
         }
 
         public TutoShowcase onClickContentView(@IdRes int viewId, View.OnClickListener onClickListener) {
