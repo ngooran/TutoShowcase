@@ -3,7 +3,7 @@ package com.github.florent37.tutoshowcase.shapes;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 public class RoundRect extends Shape {
 
