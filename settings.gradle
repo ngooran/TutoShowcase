@@ -1,1 +1,1 @@
-include ':app', ':tutoshowcase'
+include ':tutoshowcase'
